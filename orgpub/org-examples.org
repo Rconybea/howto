@@ -1,0 +1,34 @@
+# ^:{}  require a_{b} before assuming that b should be subscripted.  
+#       without this option a_b will automatically subscript b.
+#+options: ^:{}
+#
+# options used exclusively by emacs
+#+startup: showall
+# 
+# options used exclusively by the html exporter
+#+html_head: <link rel="stylesheet" type="text/css" href="../css/notebook.css" />
+
+* Introduction
+  Eric Nielsen, Jr.  has a lovely document describing how to do various useful things with org-mode.
+  This is my attempt to follow in his footsteps.
+  You can read the original here: http://ehneilsen.net/notebook/orgExamples/org-examples.html
+* Links
+  Links I found useful here:
+  - http://ehneilsen.net/notebook/orgExamples/org-examples.html
+    Eric Nielsen, Jr.'s emacs org-mode tutorial
+  - http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
+    Sebastian Rose's tutorial on org-mode publishing
+* org-mode header
+  ...to be written...
+* quoting literal text  
+  See also: http://orgmode.org/manual/Literal-examples.html org-mode manual
+  Place text to be quoted between #+begin_example and #+end_example brackets:
+  #+begin_example
+    ,#+begin_example
+    To be, or not to be, that is the question.
+    ,#+end_example
+  #+end_example
+  displays as:
+  #+begin_example
+  To be, or not to be, that is the question.
+  #+end_example

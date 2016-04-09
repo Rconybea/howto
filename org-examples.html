@@ -1,0 +1,2771 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Emacs org-mode examples and cookbook</title>
+<!-- 2015-07-20 Mon 09:44 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Eric H. Neilsen, Jr." />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../css/notebook.css" />
+
+<script type="text/javascript" src="http://orgmode.org/org-info.js">
+/**
+ *
+ * @source: http://orgmode.org/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "4");
+org_html_manager.set("LINK_HOME", "http://home.fnal.gov/~neilsen");
+org_html_manager.set("LINK_UP", "http://home.fnal.gov/~neilsen/");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="http://home.fnal.gov/~neilsen/"> UP </a>
+ |
+ <a accesskey="H" href="http://home.fnal.gov/~neilsen"> HOME </a>
+</div><div id="content">
+<h1 class="title">Emacs org-mode examples and cookbook</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Introduction</a></li>
+<li><a href="#sec-2">2. Header</a>
+<ul>
+<li><a href="#sec-2-1">2.1. General metadata</a></li>
+<li><a href="#sec-2-2">2.2. Common export parameters</a></li>
+<li><a href="#sec-2-3">2.3. <code>emacs</code> options</a></li>
+<li><a href="#sec-2-4">2.4. HTML export options</a></li>
+<li><a href="#sec-2-5">2.5. LaTeX export options</a></li>
+<li><a href="#sec-2-6">2.6. An example full header</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Setting per-file <code>emacs</code> variables</a></li>
+<li><a href="#sec-4">4. Subversion headers and introduction</a></li>
+<li><a href="#sec-5">5. <code>ditaa</code> figures</a>
+<ul>
+<li><a href="#sec-5-1">5.1. About <code>ditaa</code></a></li>
+<li><a href="#sec-5-2">5.2. Simple boxes</a></li>
+<li><a href="#sec-5-3">5.3. Unseparated boxes</a></li>
+<li><a href="#sec-5-4">5.4. Connected elements with colors</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. UML diagrams with <code>PlantUML</code></a>
+<ul>
+<li><a href="#sec-6-1">6.1. Class diagrams</a></li>
+<li><a href="#sec-6-2">6.2. Sequences diagrams</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. Symbolic algebra with <code>GNU calc</code></a>
+<ul>
+<li><a href="#sec-7-1">7.1. Calculation using a formula</a></li>
+<li><a href="#sec-7-2">7.2. Exporting GNU calc input as well as output</a></li>
+<li><a href="#sec-7-3">7.3. Solving formula</a></li>
+<li><a href="#sec-7-4">7.4. Solving systems of equations</a></li>
+<li><a href="#sec-7-5">7.5. Inverting equations</a></li>
+<li><a href="#sec-7-6">7.6. Differentials</a></li>
+<li><a href="#sec-7-7">7.7. Integration</a></li>
+<li><a href="#sec-7-8">7.8. Taylor series</a></li>
+<li><a href="#sec-7-9">7.9. Applying a formula repeatedly in <code>org-mode</code></a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8. Using <code>org-mode</code> as a spread sheet</a>
+<ul>
+<li><a href="#sec-8-1">8.1. Define one column using a formula in terms of others</a></li>
+<li><a href="#sec-8-2">8.2. Using an arbitrary code block as a table formula</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9. LaTeX equations</a>
+<ul>
+<li><a href="#sec-9-1">9.1. Inline equations</a></li>
+<li><a href="#sec-9-2">9.2. Simple equations</a></li>
+<li><a href="#sec-9-3">9.3. Aligned sets of equations</a></li>
+</ul>
+</li>
+<li><a href="#sec-10">10. Inline formula</a></li>
+<li><a href="#sec-11">11. Figures and tables with captions and labels</a></li>
+<li><a href="#sec-12">12. Figures and tables spanning multiple text columns</a></li>
+<li><a href="#sec-13">13. Verbatim examples</a></li>
+<li><a href="#sec-14">14. Code examples</a></li>
+<li><a href="#sec-15">15. Running code, returning raw output</a></li>
+<li><a href="#sec-16">16. Running code, return <code>org-mode</code> tables</a></li>
+<li><a href="#sec-17">17. Running code remotely</a></li>
+<li><a href="#sec-18">18. Running C code</a></li>
+<li><a href="#sec-19">19. Running java code</a></li>
+<li><a href="#sec-20">20. Margin notes in LaTeX</a></li>
+<li><a href="#sec-21">21. Querying a <code>PostgreSQL</code> database</a></li>
+<li><a href="#sec-22">22. Interacting with <code>R</code></a>
+<ul>
+<li><a href="#sec-22-1">22.1. Using an <code>org-mode</code> table as an R data frame</a></li>
+<li><a href="#sec-22-2">22.2. Generate a plot in your document using <code>R</code></a></li>
+<li><a href="#sec-22-3">22.3. Generating an <code>org-mode</code> table from an <code>R</code> data frame</a></li>
+</ul>
+</li>
+<li><a href="#sec-23">23. Interacting with <code>python</code></a>
+<ul>
+<li><a href="#sec-23-1">23.1. Using an <code>org-mode</code> table in python</a></li>
+<li><a href="#sec-23-2">23.2. Plotting with python</a></li>
+</ul>
+</li>
+<li><a href="#sec-24">24. Setting environment variables (like <code>PYTHONPATH</code>)</a></li>
+<li><a href="#sec-25">25. Writing literate <code>python</code> code</a>
+<ul>
+<li><a href="#sec-25-1">25.1. Creating the high level structure of the file</a></li>
+<li><a href="#sec-25-2">25.2. Generating functionality for <code>HelloWorld.py</code></a></li>
+<li><a href="#sec-25-3">25.3. Generating a <code>main</code> function for <code>HelloWorld</code></a></li>
+<li><a href="#sec-25-4">25.4. Running main from bash</a></li>
+</ul>
+</li>
+<li><a href="#sec-26">26. Doing automated testing of literate <code>python</code> programs</a>
+<ul>
+<li><a href="#sec-26-1">26.1. Making <code>test_HelloWorld.txt</code></a></li>
+<li><a href="#sec-26-2">26.2. Running just the doctests</a></li>
+<li><a href="#sec-26-3">26.3. Defining <code>unittest</code> tests</a></li>
+<li><a href="#sec-26-4">26.4. Making <code>TestHelloWorld.py</code></a></li>
+<li><a href="#sec-26-5">26.5. Running all tests</a></li>
+</ul>
+</li>
+<li><a href="#sec-27">27. Generating an <code>org-mode</code> source block within an <code>org-mode</code> document</a></li>
+<li><a href="#sec-28">28. LaTeX presentations with beamer</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document provides examples of different things that can be done
+in <code>emacs</code> <code>org-mode</code> files. This is <b>not</b> intended to be a
+tutorial. The examples should provide a clue of what you need to look
+up in the <a href="http://orgmode.org/#docs">org-mode manual</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Header</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The first set of lines of an <code>org-mode</code> file, each starting with <code>#+</code>,
+configure <code>org-mode</code>'s interpretation of the remainder of the file.
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> General metadata</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+An initial group sets the metadata used in any title pages, headers,
+footers, etc. used by the various exporters:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org" id="orgmode-header-metadata"><span style="color: #7f7f7f;">#+TITLE:</span>     <span style="color: #191970; font-weight: bold;">Emacs org-mode examples</span>
+<span style="color: #7f7f7f;">#+AUTHOR:</span>    <span style="color: #191970;">Eric H. Neilsen, Jr.</span>
+<span style="color: #7f7f7f;">#+EMAIL:</span>     <span style="color: #191970;">neilsen@fnal.gov</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Common export parameters</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Configue the <code>org-mode</code> tags for forcing inclusion of exclusion of
+sections in exported documents
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org" id="orgmode-header-exclude"><span style="color: #b22222;">#+EXPORT_SELECT_TAGS: export</span>
+<span style="color: #b22222;">#+EXPORT_EXCLUDE_TAGS: noexport</span>
+</pre>
+</div>
+
+<p>
+Additional options handle interpretation of special characters in the
+buffer, numbering of headings, etc.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org" id="orgmode-header-options"><span style="color: #b22222;">#+OPTIONS: H:2 num:nil toc:nil \n:nil @:t ::t |:t ^:{} _:{} *:t TeX:t LaTeX:t</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> <code>emacs</code> options</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+THE <code>STARTUP</code> keyword sets how the buffer is displayed when the file
+is opened in <code>emacs</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org" id="orgmode-header-emacs"><span style="color: #b22222;">#+STARTUP: showall</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> HTML export options</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+A few other are used exclusively by the <code>html</code> exporter:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org" id="orgmode-header-html"><span style="color: #b22222;">#+LANGUAGE:  en</span>
+<span style="color: #b22222;">#+INFOJS_OPT: view:showall toc:t ltoc:t mouse:underline path:<a href="http://orgmode.org/org-info.js">http://orgmode.org/org-info.js</a></span>
+<span style="color: #b22222;">#+LINK_HOME: <a href="http://home.fnal.gov/~neilsen">http://home.fnal.gov/~neilsen</a></span>
+<span style="color: #b22222;">#+LINK_UP: <a href="http://home.fnal.gov/~neilsen/notebook">http://home.fnal.gov/~neilsen/notebook</a></span>
+<span style="color: #b22222;">#+HTML_HEAD: &lt;link rel="stylesheet" type="text/css" href="../css/notebook.css" /&gt;</span>
+</pre>
+</div>
+
+<p>
+The <code>LANGUAGE</code> keyword sets the <code>lang</code> option in the <code>html</code>
+declaration.
+</p>
+
+<p>
+The <code>INFOJS_OPT</code> keyword configures the <a href="http://orgmode.org/manual/JavaScript-support.html">org-info.js</a>, javascript used
+to assist navigation of <code>org-mode</code> generated pages.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> LaTeX export options</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+The LaTeX class and any LaTeX commands to be included at the head of
+exported LaTeX files. For example, on my laptop the header looks like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org" id="orgmode-header-latex"><span style="color: #b22222;">#+LaTeX_CLASS: smarticle</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \pdfmapfile{/home/neilsen/texmf/fonts/map/dvips/libertine/libertine.map}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \usepackage[ttscale=.875]{libertine}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \usepackage{sectsty}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \sectionfont{\normalfont\scshape}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \subsectionfont{\normalfont\itshape}</span>
+</pre>
+</div>
+
+<p>
+It looks a little different in my account on the DES cluster:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+LaTeX_CLASS: smarticle</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \pdfmapfile{/home/s1/neilsen/texmf/fonts/map/dvips/libertine/libertine.map}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \usepackage{sectsty}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \usepackage{libertine}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \usepackage[T1]{fontenc}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \sectionfont{\normalfont\scshape}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \subsectionfont{\normalfont\itshape}</span>
+</pre>
+</div>
+
+<p>
+Of course, LaTeX should be installed, and for the above to work, so
+must the libertine package, and the pdfmapfile must be set.
+</p>
+
+<p>
+LaTeX installaction instruction can be found <a href="http://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages">here</a>. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> An example full header</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+A typical header that I use for <code>org-mode</code> files:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #7f7f7f;">#+TITLE:</span>     <span style="color: #191970; font-weight: bold;">Emacs org-mode examples</span>
+<span style="color: #7f7f7f;">#+AUTHOR:</span>    <span style="color: #191970;">Eric H. Neilsen, Jr.</span>
+<span style="color: #7f7f7f;">#+EMAIL:</span>     <span style="color: #191970;">neilsen@fnal.gov</span>
+<span style="color: #b22222;">#+LANGUAGE:  en</span>
+<span style="color: #b22222;">#+INFOJS_OPT: view:showall toc:t ltoc:t mouse:underline path:<a href="http://orgmode.org/org-info.js">http://orgmode.org/org-info.js</a></span>
+<span style="color: #b22222;">#+LINK_HOME: <a href="http://home.fnal.gov/~neilsen">http://home.fnal.gov/~neilsen</a></span>
+<span style="color: #b22222;">#+LINK_UP: <a href="http://home.fnal.gov/~neilsen/notebook">http://home.fnal.gov/~neilsen/notebook</a></span>
+<span style="color: #b22222;">#+HTML_HEAD: &lt;link rel="stylesheet" type="text/css" href="../css/notebook.css" /&gt;</span>
+<span style="color: #b22222;">#+LaTeX_CLASS: smarticle</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \pdfmapfile{/home/neilsen/texmf/fonts/map/dvips/libertine/libertine.map}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \usepackage[ttscale=.875]{libertine}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \usepackage{sectsty}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \sectionfont{\normalfont\scshape}</span>
+<span style="color: #b22222;">#+LaTeX_HEADER: \subsectionfont{\normalfont\itshape}</span>
+<span style="color: #b22222;">#+EXPORT_SELECT_TAGS: export</span>
+<span style="color: #b22222;">#+EXPORT_EXCLUDE_TAGS: noexport</span>
+<span style="color: #b22222;">#+OPTIONS: H:2 num:nil toc:nil \n:nil @:t ::t |:t ^:{} _:{} *:t TeX:t LaTeX:t</span>
+<span style="color: #b22222;">#+STARTUP: showall</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Setting per-file <code>emacs</code> variables</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Follow the <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html">instructions in the emacs manual</a>; begin the file with a
+line of the form:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;"># -*- foo: "bar"; baz: "ham" -*-</span>
+</pre>
+</div>
+
+<p>
+For example, to set the "Up" and "Home" links for an org-mode file,
+begin it with:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;"># -*- org-html-link-up: "<a href="http://decam03.fnal.gov:8080/notes/neilsen/">http://decam03.fnal.gov:8080/notes/neilsen/</a>";  org-html-link-home: "<a href="http://home.fnal.gov/~neilsen">http://home.fnal.gov/~neilsen</a>" -*-</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Subversion headers and introduction</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+If you wish to have subversion keyword substitution, it can be done like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"> - <span style="font-weight: bold;">Revision ::</span> $Revision: 1.3 $
+ - <span style="font-weight: bold;">Date ::</span> $Date: 2013/05/17 15:19:53 $
+ - <span style="font-weight: bold;">Source ::</span> $Source: /Users/neilsen/Documents/CTIOTime/RCS/ctio_time.org,v $
+</pre>
+</div>
+
+<p>
+The result looks like this:
+</p>
+
+<dl class="org-dl">
+<dt> Revision </dt><dd>$Revision: 1.3 $
+</dd>
+<dt> Date </dt><dd>$Date: 2013/05/17 15:19:53 $
+</dd>
+<dt> Source </dt><dd>$Source: /Users/neilsen/Documents/CTIOTime/RCS/ctio_time.org,v $
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> <code>ditaa</code> figures</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> About <code>ditaa</code></h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+<code>dataa</code> generates figures from ASCII "art". Examples of <code>ditaa</code> syntax
+can be found <a href="http://ditaa.sourceforge.net/">here</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Simple boxes</h3>
+<div class="outline-text-3" id="text-5-2">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+begin_src ditaa :file ditaa-simpleboxes.png</span>
+<span style="text-decoration: line-through;">+---------+</span>
+<span style="color: #0000ff;">|         |</span>
+<span style="color: #0000ff;">| Foo     |</span>
+<span style="color: #0000ff;">|         |</span>
+<span style="text-decoration: line-through;">+----+</span><span style="color: #0000ff;">----+---+</span>
+<span style="color: #0000ff;">|Bar |Baz     |</span>
+<span style="color: #0000ff;">|    |        |</span>
+<span style="text-decoration: line-through;">+----+</span><span style="color: #0000ff;">--------+</span>
+<span style="color: #b22222;">#+end_src</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="ditaa-simpleboxes.png" alt="ditaa-simpleboxes.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Unseparated boxes</h3>
+<div class="outline-text-3" id="text-5-3">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+begin_src ditaa :file ditaa-simpleboxes-unsep.png :cmdline -E</span>
+<span style="text-decoration: line-through;">+---------+</span>
+<span style="color: #0000ff;">|         |</span>
+<span style="color: #0000ff;">| Foo     |</span>
+<span style="color: #0000ff;">|         |</span>
+<span style="text-decoration: line-through;">+----+</span><span style="color: #0000ff;">----+---+</span>
+<span style="color: #0000ff;">|Bar |Baz     |</span>
+<span style="color: #0000ff;">|    |        |</span>
+<span style="text-decoration: line-through;">+----+</span><span style="color: #0000ff;">--------+</span>
+<span style="color: #b22222;">#+end_src</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="ditaa-simpleboxes-unsep.png" alt="ditaa-simpleboxes-unsep.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Connected elements with colors</h3>
+<div class="outline-text-3" id="text-5-4">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+begin_src ditaa :file ditaa-seqboxes.png</span>
+<span style="text-decoration: line-through;">+------+</span><span style="color: #0000ff;">   </span><span style="text-decoration: line-through;">+-----+</span><span style="color: #0000ff;">   </span><span style="text-decoration: line-through;">+-----+</span><span style="color: #0000ff;">   </span><span style="text-decoration: line-through;">+-----+</span>
+<span style="color: #0000ff;">|{io}  |   |{d}  |   |{s}  |   |cBLU |</span>
+<span style="color: #0000ff;">| Foo  </span><span style="text-decoration: line-through;">+---+</span><span style="color: #0000ff;"> Bar </span><span style="text-decoration: line-through;">+---+</span><span style="color: #0000ff;"> Baz </span><span style="text-decoration: line-through;">+---+</span><span style="color: #0000ff;"> Moo |</span>
+<span style="color: #0000ff;">|      |   |     |   |     |   |     |</span>
+<span style="text-decoration: line-through;">+------+</span><span style="color: #0000ff;">   </span><span style="text-decoration: line-through;">+-----+</span><span style="color: #0000ff;">   </span><span style="text-decoration: line-through;">+--+</span><span style="color: #0000ff;">--+   </span><span style="text-decoration: line-through;">+-----+</span>
+                        |
+           /-----\      |      <span style="text-decoration: line-through;">+------+</span>
+           <span style="color: #0000ff;">|     |      |      | c1AB |</span>
+           <span style="color: #0000ff;">| Goo </span><span style="text-decoration: line-through;">+------+</span><span style="color: #0000ff;">---=--+ Shoo |</span>
+           \-----/             |      |
+                               <span style="text-decoration: line-through;">+------+</span>
+<span style="color: #b22222;">#+end_src</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="ditaa-seqboxes.png" alt="ditaa-seqboxes.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> UML diagrams with <code>PlantUML</code></h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Class diagrams</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+This:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+begin_src plantuml :file class_diagram.png</span>
+skinparam monochrome true
+FitsHdu &lt;|-- PrimaryHdu
+FitsHdu &lt;|-- ExtensionHdu
+
+FitsHdu : header
+FitsHdu : getHeaderKeyword()
+
+ExtensionHdu &lt;|-- ImageHdu
+ImageHdu : image
+ImageHdu : getPixel(row, column)
+
+ExtensionHdu &lt;|-- BinaryTableHdu
+BinaryTableHdu : table
+BinaryTableHdu : getRow(row)
+BinaryTableHdu : getColumn(column)
+<span style="color: #b22222;">#+end_src</span>
+</pre>
+</div>
+
+<p>
+gives this:
+</p>
+
+<div class="figure">
+<p><img src="class_diagram.png" alt="class_diagram.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Sequences diagrams</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+This:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+begin_src plantuml :file sequence_diagram.png</span>
+skinparam monochrome true
+ Foo -&gt; Bar: synchronous call
+ Foo -&gt;&gt; Bar: asynchronous call
+<span style="color: #b22222;">#+end_src</span>
+</pre>
+</div>
+
+<p>
+results in this:
+</p>
+
+
+<div class="figure">
+<p><img src="sequence_diagram.png" alt="sequence_diagram.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Symbolic algebra with <code>GNU calc</code></h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Full documentation on how to use <code>GNU calc</code> can be found 
+<a href="http://www.gnu.org/software/emacs/manual/html_node/calc/Algebra.html">here</a>. Same examples:
+</p>
+</div>
+
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> Calculation using a formula</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Starting with this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :var x=5 :var y=2</span>
+2+a*x**y
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+If you place the cursor on the <code>#+BEGIN_SRC</code> and hit ctrl-c <i>twice</i>,
+it will produce a "results" section thus:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :var x=5 :var y=2</span>
+2+a*x**y
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 25 a + 2</span>
+</pre>
+</div>
+
+<p>
+Which results in this if the exported document
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-calc">2+a*x**y
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> Exporting GNU calc input as well as output</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+If you want the original formula in the exported document, you need to
+add an <code>:exports both</code> flag, thus:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :exports both</span>
+x*2+x=4
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+results:</span>
+<span style="color: #7f7f7f;">: 3 x = 4</span>
+</pre>
+</div>
+
+<p>
+Which results in this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-calc">x*2+x=4
+</pre>
+</div>
+
+<pre class="example">
+3 x = 4
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> Solving formula</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+<code>GNU calc</code> has many additional capabilities. It can be used to solve formula:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :exports both</span>
+fsolve(x*2+x=4,x)
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+results:</span>
+<span style="color: #7f7f7f;">: x = 1.33333333333</span>
+</pre>
+</div>
+
+<p>
+which exports to:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-calc">fsolve(x*2+x=4,x)
+</pre>
+</div>
+
+<pre class="example">
+x = 1.33333333333
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-7-4" class="outline-3">
+<h3 id="sec-7-4"><span class="section-number-3">7.4</span> Solving systems of equations</h3>
+<div class="outline-text-3" id="text-7-4">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc</span>
+fsolve([x + y = a, x - y = b],[x,y])
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: [x = a + (b - a) / 2, y = (a - b) / 2]</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7-5" class="outline-3">
+<h3 id="sec-7-5"><span class="section-number-3">7.5</span> Inverting equations</h3>
+<div class="outline-text-3" id="text-7-5">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :exports both</span>
+finv(sqrt(x),x)
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+results:</span>
+<span style="color: #7f7f7f;">: x^2</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7-6" class="outline-3">
+<h3 id="sec-7-6"><span class="section-number-3">7.6</span> Differentials</h3>
+<div class="outline-text-3" id="text-7-6">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :exports both</span>
+deriv(sqrt(x),x)
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 0.5 / sqrt(x)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7-7" class="outline-3">
+<h3 id="sec-7-7"><span class="section-number-3">7.7</span> Integration</h3>
+<div class="outline-text-3" id="text-7-7">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :exports both</span>
+integ(x**2,x)
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: x^3 / 3</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7-8" class="outline-3">
+<h3 id="sec-7-8"><span class="section-number-3">7.8</span> Taylor series</h3>
+<div class="outline-text-3" id="text-7-8">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC calc :exports both</span>
+taylor(sin(x),x,6)
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 0.0174532925199 x - 8.86096155693e-7 x^3 + 1.34960162314e-11 x^5</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7-9" class="outline-3">
+<h3 id="sec-7-9"><span class="section-number-3">7.9</span> Applying a formula repeatedly in <code>org-mode</code></h3>
+<div class="outline-text-3" id="text-7-9">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+name: myformula</span>
+<span style="color: #b22222;">#+BEGIN_SRC calc</span>
+2+a*x**y
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+BEGIN_SRC calc :noweb yes :var x=5 :var y=2</span>
+<span style="text-decoration: underline;">&lt;&lt;myformula&gt;&gt;</span>
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 25 a + 2</span>
+
+<span style="color: #b22222;">#+BEGIN_SRC calc :noweb yes :var x=10 :var y=2</span>
+<span style="text-decoration: underline;">&lt;&lt;myformula&gt;&gt;</span>
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 100 a + 2</span>
+</pre>
+</div>
+
+<p>
+You can accomplish roughtly the same thing like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: mynewformula</span>
+<span style="color: #b22222;">#+BEGIN_SRC calc</span>
+2+a*x**y
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+CALL: mynewformula(x=10,y=2)</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 100 a + 2</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-calc" id="mynewformula">2+a*x**y
+</pre>
+</div>
+
+<pre class="example">
+100 a + 2
+</pre>
+
+<p>
+The first mechanism is somewhat more versatile, as you can combine
+multiple code blocks.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Using <code>org-mode</code> as a spread sheet</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Define one column using a formula in terms of others</h3>
+<div class="outline-text-3" id="text-8-1">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #0000ff;">| airmass | zenith_seeing | delivered_seeing |</span>
+<span style="color: #0000ff;">|---------+---------------+------------------|</span>
+<span style="color: #0000ff;">|     1.3 |          0.95 |        1.1119612 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.0 |        1.1704854 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.1 |        1.2875340 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.2 |        1.4045825 |</span>
+<span style="color: #0000ff;">|     1.3 |          1.25 |        1.4631068 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.3 |        1.5216311 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.5 |        1.7557281 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.8 |        2.1068738 |</span>
+<span style="color: #0000ff;">|     1.2 |           1.8 |        2.0080811 |</span>
+<span style="color: #0000ff;">|     1.3 |           2.0 |        2.3409709 |</span>
+<span style="color: #b22222;">#+TBLFM: $3=$2*($1**0.6)</span>
+</pre>
+</div>
+
+<p>
+results in this in the output:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">airmass</th>
+<th scope="col" class="right">zenith_seeing</th>
+<th scope="col" class="right">delivered_seeing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">1.3</td>
+<td class="right">0.95</td>
+<td class="right">1.1119612</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.0</td>
+<td class="right">1.1704854</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.1</td>
+<td class="right">1.2875340</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.2</td>
+<td class="right">1.4045825</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.25</td>
+<td class="right">1.4631068</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.3</td>
+<td class="right">1.5216311</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.5</td>
+<td class="right">1.7557281</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.8</td>
+<td class="right">2.1068738</td>
+</tr>
+
+<tr>
+<td class="right">1.2</td>
+<td class="right">1.8</td>
+<td class="right">2.0080811</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">2.1</td>
+<td class="right">2.4580194</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+To recalculate the column, put the cursor on the <code>#+TBLFM</code> column and
+hit ctrl-c <i>twice</i>.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> Using an arbitrary code block as a table formula</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+This:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: sampformula</span>
+<span style="color: #b22222;">#+BEGIN_SRC python :var angle=90 :var r=2 :exports none</span>
+from math import radians, cos
+result = r*cos(radians(angle))
+return result
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #0000ff;">| angle |  r |             x |</span>
+<span style="color: #0000ff;">|-------+----+---------------|</span>
+<span style="color: #0000ff;">|    30 | 10 | 8.66025403784 |</span>
+<span style="color: #0000ff;">|    45 | 10 | 7.07106781187 |</span>
+<span style="color: #0000ff;">|    60 | 10 |           5.0 |</span>
+<span style="color: #b22222;">#+TBLFM: $3='(org-sbe "sampformula" (angle $1) (r $2))</span>
+</pre>
+</div>
+
+<p>
+Results in this:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">angle</th>
+<th scope="col" class="right">r</th>
+<th scope="col" class="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">30</td>
+<td class="right">10</td>
+<td class="right">8.66025403784</td>
+</tr>
+
+<tr>
+<td class="right">45</td>
+<td class="right">10</td>
+<td class="right">7.07106781187</td>
+</tr>
+
+<tr>
+<td class="right">60</td>
+<td class="right">10</td>
+<td class="right">5.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> LaTeX equations</h2>
+<div class="outline-text-2" id="text-9">
+</div><div id="outline-container-sec-9-1" class="outline-3">
+<h3 id="sec-9-1"><span class="section-number-3">9.1</span> Inline equations</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+This:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org">Foo bar \(f(x) = \frac{x^3}{n}\) chicken checken.
+</pre>
+</div>
+
+<p>
+renders as this:
+</p>
+
+<p>
+Foo bar \(f(x) = \frac{x^3}{n}\) chicken checken.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9-2" class="outline-3">
+<h3 id="sec-9-2"><span class="section-number-3">9.2</span> Simple equations</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+This:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org">Our best estimate of F(\nu) will be 
+\[
+\hat{F}(\nu) = \frac{G(\nu)}{H(\nu)}.
+\]
+</pre>
+</div>
+
+<p>
+renders as this:
+</p>
+
+<p>
+Our best estimate of F(&nu;) will be 
+\[
+\hat{F}(\nu) = \frac{G(\nu)}{H(\nu)}.
+\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9-3" class="outline-3">
+<h3 id="sec-9-3"><span class="section-number-3">9.3</span> Aligned sets of equations</h3>
+<div class="outline-text-3" id="text-9-3">
+<p>
+This:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org">\begin{eqnarray*}
+\hat{f}(x) &amp; \propto &amp; \sum_{\nu} \frac{|F(\nu)H(\nu)|^2}{|N(\nu)|^2}  
+           \frac{G(\nu)}{H(\nu)} e^{\frac{2 \pi i \nu x}{N}}\\
+           &amp; \propto &amp; \sum_{\nu} \frac{|F(\nu)|^2}{|N(\nu)|^2} H(\nu) H^*(\nu) 
+           \frac{G(\nu)}{H(\nu)} e^{\frac{2 \pi i \nu x}{N}}\\
+           &amp; \propto &amp; \sum_{\nu} H^*(\nu) G(\nu) e^{\frac{2 \pi i \nu x}{N}}
+\end{eqnarray*}
+</pre>
+</div>
+
+<p>
+renders as this:
+</p>
+\begin{eqnarray*}
+\hat{f}(x) & \propto & \sum_{\nu} \frac{|F(\nu)H(\nu)|^2}{|N(\nu)|^2}  
+           \frac{G(\nu)}{H(\nu)} e^{\frac{2 \pi i \nu x}{N}}\\
+           & \propto & \sum_{\nu} \frac{|F(\nu)|^2}{|N(\nu)|^2} H(\nu) H^*(\nu) 
+           \frac{G(\nu)}{H(\nu)} e^{\frac{2 \pi i \nu x}{N}}\\
+           & \propto & \sum_{\nu} H^*(\nu) G(\nu) e^{\frac{2 \pi i \nu x}{N}}
+\end{eqnarray*}
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Inline formula</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+<code>org-mode</code> can have automatically calcualted inline formula. For
+example, this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org">The scaling for 1.3 airmasses is src_R{format(1.3**(3.0/5.0),digits=3)} <span style="color: #7f7f7f;">=1.17=</span> 
+
+The scaling for 1.3 airmasses is src_calc{round(1.3**(3.0/5.0),4)} <span style="color: #7f7f7f;">=1.1705=</span>
+
+The scaling for 1.3 airmasses is src_python{return "%4.1f" % (1.3**(3.0/5.0))} <span style="color: #7f7f7f;">=1.2=</span>
+</pre>
+</div>
+
+<p>
+produces this:
+</p>
+
+<p>
+The scaling for 1.3 airmasses is <code>1.17</code> 
+</p>
+
+<p>
+The scaling for 1.3 airmasses is <code>1.1705</code> 
+</p>
+
+<p>
+The scaling for 1.3 airmasses is <code>1.2</code>
+</p>
+
+<p>
+Calculations can be repeated by putting the cursor on the formula and
+hitting ctrl-c twice.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> Figures and tables with captions and labels</h2>
+<div class="outline-text-2" id="text-11">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+CAPTION:    This was the ditaa example</span>
+<span style="color: #b22222;">#+LABEL:      fig:ditaaex</span>
+<span style="color: #b22222;">#+ATTR_LaTeX: width=5cm,angle=90</span>
+<span style="color: #3a5fcd; text-decoration: underline;"><a href="file:ditaa-simpleboxes.png">file:ditaa-simpleboxes.png</a></span>
+
+This is some sample text in which I reference \ref{fig:ditaaex}.
+</pre>
+</div>
+
+
+<div id="fig:ditaaex" class="figure">
+<p><img src="ditaa-simpleboxes.png" alt="ditaa-simpleboxes.png" />
+</p>
+<p><span class="figure-number">Figure 6:</span> This was the ditaa example</p>
+</div>
+
+<p>
+This is some sample text in which I reference \ref{fig:ditaaex}.
+</p>
+
+<p>
+(The reference works in LaTeX, but not html export.)
+</p>
+
+<p>
+More elaborate LaTeX attributes can be used:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+ATTR_LaTeX: width=0.38\textwidth wrap placement={r}{0.4\textwidth}</span>
+</pre>
+</div>
+
+<p>
+Captions and references can also be applied to tables.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> Figures and tables spanning multiple text columns</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+Images, plots, code listings, and tables often need to span multiple
+text columns to fit when exporting to multi-column latex styles. This
+can be done by preceeding the relevant block with 
+a <code>#+ATTR_LATEX: :float multicolumn</code> line, for example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+CAPTION: This is a wide table</span>
+<span style="color: #b22222;">#+ATTR_LATEX: :float multicolumn</span>
+<span style="color: #0000ff;">| A       | B          | C       | D          | E       | F          | G       | H          |</span>
+<span style="color: #0000ff;">|---------+------------+---------+------------+---------+------------+---------+------------|</span>
+<span style="color: #0000ff;">| foo bar | baz boggle | foo bar | baz boggle | foo bar | baz boggle | foo bar | baz boggle |</span>
+<span style="color: #0000ff;">| foo bar | baz boggle | foo bar | baz boggle | foo bar | baz boggle | foo bar | baz boggle |</span>
+<span style="color: #0000ff;">| foo bar | baz boggle | foo bar | baz boggle | foo bar | baz boggle | foo bar | baz boggle |</span>
+</pre>
+</div>
+
+<p>
+or 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+CAPTION: Here is my python code.</span>
+<span style="color: #b22222;">#+ATTR_LATEX: :float multicolumn</span>
+<span style="color: #b22222;">#+BEGIN_SRC python</span>
+print "This is a longish line of code that needs to span multiple columns in a latex export"
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> Verbatim examples</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+Verbatim example code can be marked. For example, this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_EXAMPLE</span>
+Last login: Mon Dec  2 08:44:25 on ttys000
+argos:~ neilsen$ echo "foo"
+foo
+argos:~ neilsen$ 
+<span style="color: #b22222;">#+END_EXAMPLE</span>
+</pre>
+</div>
+
+<p>
+results in this:
+</p>
+
+<pre class="example">
+Last login: Mon Dec  2 08:44:25 on ttys000
+argos:~ neilsen$ echo "foo"
+foo
+argos:~ neilsen$
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> Code examples</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+Source code can be displayed using the native modes in <code>emacs</code>. For
+example, this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC python</span>
+  def times_two(x):
+       y = x*2
+       return y
+  
+  print times_two(5)    
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+produces this:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-python">  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">times_two</span>(x):
+       <span style="color: #a0522d;">y</span> = x*2
+       <span style="color: #a020f0;">return</span> y
+  
+  <span style="color: #a020f0;">print</span> times_two(5)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> Running code, returning raw output</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+This:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC python :results output :exports both</span>
+  def times_two(x):
+       y = x*2
+       return y
+  
+  print times_two(5)    
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 10</span>
+</pre>
+</div>
+
+<p>
+produces this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python">  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">times_two</span>(x):
+       <span style="color: #a0522d;">y</span> = x*2
+       <span style="color: #a020f0;">return</span> y
+  
+  <span style="color: #a020f0;">print</span> times_two(5)
+</pre>
+</div>
+
+<pre class="example">
+10
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-16" class="outline-2">
+<h2 id="sec-16"><span class="section-number-2">16</span> Running code, return <code>org-mode</code> tables</h2>
+<div class="outline-text-2" id="text-16">
+<p>
+This:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC python :exports both</span>
+a = ('b', 200)
+b = ('x', 10)
+c = ('q', -42)
+return (a, b, c)
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #0000ff;">| b | 200 |</span>
+<span style="color: #0000ff;">| x |  10 |</span>
+<span style="color: #0000ff;">| q | -42 |</span>
+</pre>
+</div>
+
+<p>
+produces this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #a0522d;">a</span> = (<span style="color: #8b2252;">'b'</span>, 200)
+<span style="color: #a0522d;">b</span> = (<span style="color: #8b2252;">'x'</span>, 10)
+<span style="color: #a0522d;">c</span> = (<span style="color: #8b2252;">'q'</span>, -42)
+<span style="color: #a020f0;">return</span> (a, b, c)
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">b</td>
+<td class="right">200</td>
+</tr>
+
+<tr>
+<td class="left">x</td>
+<td class="right">10</td>
+</tr>
+
+<tr>
+<td class="left">q</td>
+<td class="right">-42</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+By removing the <code>:exports both</code>, you can export just the code and not
+the output. By replaceing it with <code>:exports results</code>, you can export
+the output without the source.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-17" class="outline-2">
+<h2 id="sec-17"><span class="section-number-2">17</span> Running code remotely</h2>
+<div class="outline-text-2" id="text-17">
+<p>
+Adding appropriate <code>:dir</code> parameters runs the code in other working
+direcories, or even on remote machines:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC sh :results output :exports both</span>
+echo $PWD
+echo $HOSTNAME
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: /Users/neilsen/Notebook/org/orgExamples</span>
+<span style="color: #7f7f7f;">: argos.dhcp.fnal.gov</span>
+
+<span style="color: #b22222;">#+BEGIN_SRC sh :results output :exports both :dir /tmp</span>
+echo $PWD
+echo $HOSTNAME
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: /private/tmp</span>
+<span style="color: #7f7f7f;">: argos.dhcp.fnal.gov</span>
+
+<span style="color: #b22222;">#+BEGIN_SRC sh :results output :exports both :dir :dir /ssh:neilsen@decam03.fnal.gov:/home/neilsen</span>
+echo $PWD
+echo $HOSTNAME
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: /home/neilsen</span>
+<span style="color: #7f7f7f;">: decam03.fnal.gov</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-18" class="outline-2">
+<h2 id="sec-18"><span class="section-number-2">18</span> Running C code</h2>
+<div class="outline-text-2" id="text-18">
+<p>
+C code is handled a little differently, as it must be compiled and run.
+</p>
+
+<p>
+This block:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+HEADERS: :includes &lt;math.h&gt; :flags -lm </span>
+<span style="color: #b22222;">#+HEADERS: :var x=1.0 :var y=4.0 :var z=10.0</span>
+<span style="color: #b22222;">#+BEGIN_SRC C :exports both</span>
+double pi = 4*atan(1);
+double r, theta, phi;
+r = sqrt(x*x+y*y+z*z);
+theta = acos(z/r) * 180.0/pi;
+phi = atan2(y,x) * 180.0/pi;
+printf("%f %f %f", r, theta, phi);
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+Generates, compiles, and runs this C code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;math.h&gt;</span>
+
+<span style="color: #228b22;">double</span> <span style="color: #a0522d;">x</span> = 1.000000;
+<span style="color: #228b22;">double</span> <span style="color: #a0522d;">y</span> = 4.000000;
+<span style="color: #228b22;">double</span> <span style="color: #a0522d;">z</span> = 10.000000;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
+<span style="color: #228b22;">double</span> <span style="color: #a0522d;">pi</span> = 4*atan(1);
+<span style="color: #228b22;">double</span> <span style="color: #a0522d;">r</span>, <span style="color: #a0522d;">theta</span>, <span style="color: #a0522d;">phi</span>;
+r = sqrt(x*x+y*y+z*z);
+theta = acos(z/r) * 180.0/pi;
+phi = atan2(y,x) * 180.0/pi;
+printf(<span style="color: #8b2252;">"%f %f %f"</span>, r, theta, phi);
+<span style="color: #a020f0;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+which results in:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: 10.816654 22.406871 75.963757</span>
+</pre>
+</div>
+
+<p>
+So the final result looks like this when evaluated and exported:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C"><span style="color: #228b22;">double</span> <span style="color: #a0522d;">pi</span> = 4*atan(1);
+<span style="color: #228b22;">double</span> <span style="color: #a0522d;">r</span>, <span style="color: #a0522d;">theta</span>, <span style="color: #a0522d;">phi</span>;
+r = sqrt(x*x+y*y+z*z);
+theta = acos(z/r) * 180.0/pi;
+phi = atan2(y,x) * 180.0/pi;
+printf(<span style="color: #8b2252;">"%f %f %f"</span>, r, theta, phi);
+</pre>
+</div>
+
+<pre class="example">
+10.816654 22.406871 75.963757
+</pre>
+
+<p>
+There is a trick to multiple includes: they must be passed as elisp lists, for example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org">#+BEGIN_SRC C :includes '(&lt;math.h&gt; &lt;time.h&gt;)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-19" class="outline-2">
+<h2 id="sec-19"><span class="section-number-2">19</span> Running java code</h2>
+<div class="outline-text-2" id="text-19">
+<p>
+Java code can be evaluated as well, for example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+HEADERS: :classname HelloWorld :cmdline "-cp ."</span>
+<span style="color: #b22222;">#+begin_src java  :results output :exports both</span>
+  public class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World");
+      }
+  }
+<span style="color: #b22222;">#+end_src</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: Hello, World</span>
+</pre>
+</div>
+
+<p>
+This exports to:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">  <span style="color: #a020f0;">public</span> <span style="color: #a020f0;">class</span> <span style="color: #228b22;">HelloWorld</span> {
+      <span style="color: #a020f0;">public</span> <span style="color: #a020f0;">static</span> <span style="color: #228b22;">void</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">String</span>[] <span style="color: #a0522d;">args</span>) {
+          System.out.println(<span style="color: #8b2252;">"Hello, World"</span>);
+      }
+  }
+</pre>
+</div>
+
+<pre class="example">
+Hello, World
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-20" class="outline-2">
+<h2 id="sec-20"><span class="section-number-2">20</span> Margin notes in LaTeX</h2>
+<div class="outline-text-2" id="text-20">
+<p>
+Margin notes can be generated for the latex export, but not in a way
+portable to other export methods (like html):
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_LaTeX</span>
+\marginpar{\color{blue} \tiny \raggedright
+\vspace{18pt}
+In the Molly 23 layout, not all tilings have the same numbers of
+hexes (pointings); the offsets for each tiling can push different hexes into or
+out of the footprint.}
+<span style="color: #b22222;">#+END_LaTeX</span>
+</pre>
+</div>
+
+<p>
+The vspace help tweak the placement to put it next the text you want
+it next to.
+</p>
+
+<p>
+Note that you can use the same trick with figure. If you use the
+<code>capt-of</code> latex package, you can even get the figure numbered
+correctly. For example,
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_LATEX</span>
+\marginpar{
+\includegraphics[width=\marginparwidth]{test_img.png}
+\captionof{figure}{This is a test figure}\label{testimg}
+}
+<span style="color: #b22222;">#+END_LATEX</span>
+</pre>
+</div>
+
+<p>
+If you have fiddled with the margins using the LaTeX <code>geometry</code>
+package, be sure to set the <code>marginparwidth</code> parameter in your
+<code>geometry</code> statement.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-21" class="outline-2">
+<h2 id="sec-21"><span class="section-number-2">21</span> Querying a <code>PostgreSQL</code> database</h2>
+<div class="outline-text-2" id="text-21">
+<p>
+Provided your account is configured with appropriate passwords, this:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC sql :engine postgresql :exports results :cmdline -p 5443 -h des20.fnal.gov -U decam_reader -d decam_prd</span>
+SELECT date, ra, declination FROM exposure.exposure LIMIT 10
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+Results in this:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">date</th>
+<th scope="col" class="right">ra</th>
+<th scope="col" class="right">declination</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">2013-06-04 21:48:01.54791+00</td>
+<td class="right">271.125446</td>
+<td class="right">-31.316167</td>
+</tr>
+
+<tr>
+<td class="left">2013-06-04 21:48:38.329063+00</td>
+<td class="right">271.125446</td>
+<td class="right">-31.316167</td>
+</tr>
+
+<tr>
+<td class="left">2013-04-25 00:09:21.976324+00</td>
+<td class="right">144.404229</td>
+<td class="right">15.058917</td>
+</tr>
+
+<tr>
+<td class="left">2013-01-11 03:16:40.700054+00</td>
+<td class="right">111.02375</td>
+<td class="right">-1.490556</td>
+</tr>
+
+<tr>
+<td class="left">2013-03-17 19:36:44.482928+00</td>
+<td class="right">200.013333</td>
+<td class="right">-20.65</td>
+</tr>
+
+<tr>
+<td class="left">2013-06-24 07:12:00.531216+00</td>
+<td class="right">9.5</td>
+<td class="right">-43.998</td>
+</tr>
+
+<tr>
+<td class="left">2013-06-12 01:42:20.851991+00</td>
+<td class="right">269.261287</td>
+<td class="right">-27.892739</td>
+</tr>
+
+<tr>
+<td class="left">2013-06-24 07:15:49.054427+00</td>
+<td class="right">9.5</td>
+<td class="right">-43.998</td>
+</tr>
+
+<tr>
+<td class="left">2013-09-02 20:25:33.523124+00</td>
+<td class="right">50</td>
+<td class="right">0</td>
+</tr>
+
+<tr>
+<td class="left">2013-09-02 20:26:24.503093+00</td>
+<td class="right">50</td>
+<td class="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-22" class="outline-2">
+<h2 id="sec-22"><span class="section-number-2">22</span> Interacting with <code>R</code></h2>
+<div class="outline-text-2" id="text-22">
+</div><div id="outline-container-sec-22-1" class="outline-3">
+<h3 id="sec-22-1"><span class="section-number-3">22.1</span> Using an <code>org-mode</code> table as an R data frame</h3>
+<div class="outline-text-3" id="text-22-1">
+<p>
+If you have an <code>org-mode</code> table with a name:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+tblname: delsee</span>
+<span style="color: #0000ff;">| airmass | zenith_seeing | delivered_seeing |</span>
+<span style="color: #0000ff;">|---------+---------------+------------------|</span>
+<span style="color: #0000ff;">|     1.3 |          0.95 |        1.1119612 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.0 |        1.1704854 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.1 |        1.2875340 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.2 |        1.4045825 |</span>
+<span style="color: #b22222;">#+TBLFM: $3=$2*($1**0.6)</span>
+</pre>
+</div>
+
+<p>
+you can use it from within <code>R</code> code as a data frame:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+begin_src R :results output :var delsee=delsee </span>
+summary(delsee)
+<span style="color: #b22222;">#+end_src</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">:     airmass    zenith_seeing    delivered_seeing</span>
+<span style="color: #7f7f7f;">:  Min.   :1.3   Min.   :0.9500   Min.   :1.112   </span>
+<span style="color: #7f7f7f;">:  1st Qu.:1.3   1st Qu.:0.9875   1st Qu.:1.156   </span>
+<span style="color: #7f7f7f;">:  Median :1.3   Median :1.0500   Median :1.229   </span>
+<span style="color: #7f7f7f;">:  Mean   :1.3   Mean   :1.0625   Mean   :1.244   </span>
+<span style="color: #7f7f7f;">:  3rd Qu.:1.3   3rd Qu.:1.1250   3rd Qu.:1.317   </span>
+<span style="color: #7f7f7f;">:  Max.   :1.3   Max.   :1.2000   Max.   :1.405</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-22-2" class="outline-3">
+<h3 id="sec-22-2"><span class="section-number-3">22.2</span> Generate a plot in your document using <code>R</code></h3>
+<div class="outline-text-3" id="text-22-2">
+<p>
+This:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+tblname: delsee</span>
+<span style="color: #0000ff;">| airmass | zenith_seeing | delivered_seeing |</span>
+<span style="color: #0000ff;">|---------+---------------+------------------|</span>
+<span style="color: #0000ff;">|     1.3 |          0.95 |        1.1119612 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.0 |        1.1704854 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.1 |        1.2875340 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.2 |        1.4045825 |</span>
+<span style="color: #b22222;">#+TBLFM: $3=$2*($1**0.6)</span>
+
+<span style="color: #b22222;">#+begin_src R :exports both :results output graphics :var delsee=delsee :file delsee-r.png :width 400 :height 300</span>
+library(ggplot2)
+p &lt;- ggplot(delsee, aes(zenith_seeing, delivered_seeing))
+p &lt;- p + geom_point()
+p
+<span style="color: #b22222;">#+end_src</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #3a5fcd; text-decoration: underline;"><a href="file:delsee-r.png">file:delsee-r.png</a></span>
+</pre>
+</div>
+
+<p>
+Results in this:
+</p>
+<table id="delsee" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="right" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">airmass</th>
+<th scope="col" class="right">zenith_seeing</th>
+<th scope="col" class="right">delivered_seeing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">1.3</td>
+<td class="right">0.95</td>
+<td class="right">1.1119612</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.0</td>
+<td class="right">1.1704854</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.1</td>
+<td class="right">1.2875340</td>
+</tr>
+
+<tr>
+<td class="right">1.3</td>
+<td class="right">1.2</td>
+<td class="right">1.4045825</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #008b8b;">library</span>(ggplot2)
+p <span style="color: #008b8b;">&lt;-</span> ggplot(delsee, aes(zenith_seeing, delivered_seeing))
+p <span style="color: #008b8b;">&lt;-</span> p + geom_point()
+p
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="delsee-r.png" alt="delsee-r.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-22-3" class="outline-3">
+<h3 id="sec-22-3"><span class="section-number-3">22.3</span> Generating an <code>org-mode</code> table from an <code>R</code> data frame</h3>
+<div class="outline-text-3" id="text-22-3">
+<p>
+The simple way is just to return the value of the data frame:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC R :colnames yes</span>
+d &lt;- data.frame(foo=c('a','b','n'), bar=c(1.0/3.0,22,32))
+d
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #0000ff;">| foo |               bar |</span>
+<span style="color: #0000ff;">|-----+-------------------|</span>
+<span style="color: #0000ff;">| a   | 0.333333333333333 |</span>
+<span style="color: #0000ff;">| b   |                22 |</span>
+<span style="color: #0000ff;">| n   |                32 |</span>
+</pre>
+</div>
+
+<p>
+To limit significant figures, use the <code>ascii</code> <code>R</code> package. For
+example, this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC R :results output raw :exports both</span>
+d &lt;- data.frame(foo=c('a','b','n'), bar=c(1.0/3.0,22,32))
+
+library(ascii)
+options(asciiType="org")
+ascii(d,format=c('s','f'),digits=c(5,4),include.rownames=FALSE)
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #0000ff;">| foo |     bar |</span>
+<span style="color: #0000ff;">|-----+---------|</span>
+<span style="color: #0000ff;">| a   |  0.3333 |</span>
+<span style="color: #0000ff;">| b   | 22.0000 |</span>
+<span style="color: #0000ff;">| n   | 32.0000 |</span>
+</pre>
+</div>
+
+<p>
+produces this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">d <span style="color: #008b8b;">&lt;-</span> data.frame(foo=c(<span style="color: #8b2252;">'a'</span>,<span style="color: #8b2252;">'b'</span>,<span style="color: #8b2252;">'n'</span>), bar=c(1.0/3.0,22,32))
+
+<span style="color: #008b8b;">library</span>(ascii)
+options(asciiType=<span style="color: #8b2252;">"org"</span>)
+ascii(d,format=c(<span style="color: #8b2252;">'s'</span>,<span style="color: #8b2252;">'f'</span>),digits=c(5,4),include.rownames=<span style="color: #228b22;">FALSE</span>)
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">foo</th>
+<th scope="col" class="right">bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">a</td>
+<td class="right">0.3333</td>
+</tr>
+
+<tr>
+<td class="left">b</td>
+<td class="right">22.0000</td>
+</tr>
+
+<tr>
+<td class="left">n</td>
+<td class="right">32.0000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-23" class="outline-2">
+<h2 id="sec-23"><span class="section-number-2">23</span> Interacting with <code>python</code></h2>
+<div class="outline-text-2" id="text-23">
+</div><div id="outline-container-sec-23-1" class="outline-3">
+<h3 id="sec-23-1"><span class="section-number-3">23.1</span> Using an <code>org-mode</code> table in python</h3>
+<div class="outline-text-3" id="text-23-1">
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+tblname: delsee</span>
+<span style="color: #0000ff;">| airmass | zenith_seeing | delivered_seeing |</span>
+<span style="color: #0000ff;">|---------+---------------+------------------|</span>
+<span style="color: #0000ff;">|     1.3 |          0.95 |        1.1119612 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.0 |        1.1704854 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.1 |        1.2875340 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.2 |        1.4045825 |</span>
+<span style="color: #b22222;">#+TBLFM: $3=$2*($1**0.6)</span>
+
+<span style="color: #b22222;">#+BEGIN_SRC python :var delsee=delsee :results output</span>
+print delsee
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #7f7f7f;">: [[1.3, 0.95, 1.1119612], [1.3, 1.0, 1.1704854], [1.3, 1.1, 1.287534], [1.3, 1.2, 1.4045825]]</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-23-2" class="outline-3">
+<h3 id="sec-23-2"><span class="section-number-3">23.2</span> Plotting with python</h3>
+<div class="outline-text-3" id="text-23-2">
+<p>
+This:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+tblname: delsee</span>
+<span style="color: #0000ff;">| airmass | zenith_seeing | delivered_seeing |</span>
+<span style="color: #0000ff;">|---------+---------------+------------------|</span>
+<span style="color: #0000ff;">|     1.3 |          0.95 |        1.1119612 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.0 |        1.1704854 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.1 |        1.2875340 |</span>
+<span style="color: #0000ff;">|     1.3 |           1.2 |        1.4045825 |</span>
+<span style="color: #b22222;">#+TBLFM: $3=$2*($1**0.6)</span>
+
+<span style="color: #b22222;">#+BEGIN_SRC python :var fname="delseepy.png" :var delsee=delsee :results file</span>
+import matplotlib.pyplot as plt
+
+x, y, z = zip(*delsee)
+
+fig = plt.figure()
+axes = fig.add_subplot(1,1,1)
+axes.plot(y, z, marker='o')
+fig.savefig(fname)
+
+return fname
+<span style="color: #b22222;">#+END_SRC</span>
+
+<span style="color: #b22222;">#+RESULTS:</span>
+<span style="color: #3a5fcd; text-decoration: underline;"><a href="file:delseepy.png">file:delseepy.png</a></span>
+</pre>
+</div>
+
+<p>
+Results in this:
+</p>
+
+
+<div class="figure">
+<p><img src="delseepy.png" alt="delseepy.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-24" class="outline-2">
+<h2 id="sec-24"><span class="section-number-2">24</span> Setting environment variables (like <code>PYTHONPATH</code>)</h2>
+<div class="outline-text-2" id="text-24">
+<p>
+Create an <code>emacs-lisp</code> code block that looks like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC emacs-lisp</span>
+(setenv "PYTHONPATH" "/Users/neilsen/Development/obswatch-trunk/common/python")
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+Execute it, and it changes the environment accordingly.
+</p>
+
+<p>
+Note that you can also append to environment variables like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC emacs-lisp</span>
+(setenv "PYTHONPATH" (concat (getenv "PYTHONPATH") ":" (getenv "DQSTATS_DIR")))
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-25" class="outline-2">
+<h2 id="sec-25"><span class="section-number-2">25</span> Writing literate <code>python</code> code</h2>
+<div class="outline-text-2" id="text-25">
+</div><div id="outline-container-sec-25-1" class="outline-3">
+<h3 id="sec-25-1"><span class="section-number-3">25.1</span> Creating the high level structure of the file</h3>
+<div class="outline-text-3" id="text-25-1">
+<p>
+Following the structure outlined in <a href="http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html#module-structure">Code Like a Pythonista</a>, construct
+the python source file in sections:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC python :noweb yes :tangle HelloWorld.py :exports none</span>
+"""This is a hello world example document"""
+
+# imports
+import sys
+<span style="text-decoration: underline;">&lt;&lt;helloworld-main-imports&gt;&gt;</span>
+
+# constants
+
+# exception classes
+
+# interface functions
+
+# classes
+<span style="text-decoration: underline;">&lt;&lt;HelloWorld-defn&gt;&gt;</span>
+
+# internal functions &amp; classes
+
+<span style="text-decoration: underline;">&lt;&lt;helloworld-main&gt;&gt;</span>
+
+if __name__ == '__main__':
+    status = main()
+    sys.exit(status)
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+When <code>M-x org-babel-tangle</code> is run within <code>emacs</code>, the 
+<code>:tangle HelloWorld.py</code> line will cause it to generate a the file
+<code>HelloWorld.py</code> from the contents of the code blocks. 
+</p>
+
+<p>
+The bracketed lines (<code>helloworld-classes</code>, for example) are code
+fragments that will be defined later. <code>org-mode</code> will automatically
+substitute these blocks when createing the <code>HelloWorld.py</code> file.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-25-2" class="outline-3">
+<h3 id="sec-25-2"><span class="section-number-3">25.2</span> Generating functionality for <code>HelloWorld.py</code></h3>
+<div class="outline-text-3" id="text-25-2">
+<p>
+Define the <code>HelloWorld</code> class thus:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: HelloWorld-defn</span>
+<span style="color: #b22222;">#+BEGIN_SRC python</span>
+  class HelloWorld(object):
+      def __init__(self, who):
+          self.who = who
+  
+      def say_hello(self):
+          print "Hello %s" % self.who
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+In the org-mode document, it will look like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python" id="HelloWorld-defn">  <span style="color: #a020f0;">class</span> <span style="color: #228b22;">HelloWorld</span>(<span style="color: #483d8b;">object</span>):
+      <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>, who):
+          <span style="color: #a020f0;">self</span>.who = who
+  
+      <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">say_hello</span>(<span style="color: #a020f0;">self</span>):
+          <span style="color: #a020f0;">print</span> <span style="color: #8b2252;">"Hello %s"</span> % <span style="color: #a020f0;">self</span>.who
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-25-3" class="outline-3">
+<h3 id="sec-25-3"><span class="section-number-3">25.3</span> Generating a <code>main</code> function for <code>HelloWorld</code></h3>
+<div class="outline-text-3" id="text-25-3">
+<p>
+It's usually a good idea to have an argument parser in <code>main</code>. Start
+by creating a code block the performs the required imports:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: helloworld-main-imports</span>
+<span style="color: #b22222;">#+BEGIN_SRC python</span>
+from argparse import ArgumentParser
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+which comes out like this in the document:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python" id="helloworld-main-imports"><span style="color: #a020f0;">from</span> argparse <span style="color: #a020f0;">import</span> ArgumentParser
+</pre>
+</div>
+
+<p>
+Then, define the <code>main</code> function itself:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: helloworld-main</span>
+<span style="color: #b22222;">#+BEGIN_SRC python</span>
+  def main():
+      parser = ArgumentParser(description="Say hi")
+      parser.add_argument("-w", "--who", 
+                          type=str,
+                          default="world",
+                          help="Who to say hello to")
+      args = parser.parse_args()
+  
+      who = args.who
+  
+      greeter = HelloWorld(who)
+      greeter.say_hello()
+  
+      return 0
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+which comes out like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python" id="helloworld-main">  <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">main</span>():
+      <span style="color: #a0522d;">parser</span> = ArgumentParser(description=<span style="color: #8b2252;">"Say hi"</span>)
+      parser.add_argument(<span style="color: #8b2252;">"-w"</span>, <span style="color: #8b2252;">"--who"</span>, 
+                          <span style="color: #483d8b;">type</span>=<span style="color: #483d8b;">str</span>,
+                          default=<span style="color: #8b2252;">"world"</span>,
+                          <span style="color: #483d8b;">help</span>=<span style="color: #8b2252;">"Who to say hello to"</span>)
+      <span style="color: #a0522d;">args</span> = parser.parse_args()
+  
+      <span style="color: #a0522d;">who</span> = args.who
+  
+      <span style="color: #a0522d;">greeter</span> = HelloWorld(who)
+      greeter.say_hello()
+  
+      <span style="color: #a020f0;">return</span> 0
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-25-4" class="outline-3">
+<h3 id="sec-25-4"><span class="section-number-3">25.4</span> Running main from bash</h3>
+<div class="outline-text-3" id="text-25-4">
+<p>
+Create a section to make it easy to run the generated code from within
+the orgmode document:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: bashrun-helloworld</span>
+<span style="color: #b22222;">#+BEGIN_SRC sh :results output :exports none</span>
+python HelloWorld.py --w Eric 2&gt;&amp;1
+true
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+The "true" command at the end of this shell script makes sure that the
+output gets incorportated into the <code>org-mode</code> buffer even if the code
+crashes.
+</p>
+
+<p>
+The output looks like this in your orgmode buffer:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh" id="bashrun-helloworld">python HelloWorld.py --w Eric 2&gt;&amp;1
+true
+</pre>
+</div>
+
+<pre class="example">
+Hello Eric
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-26" class="outline-2">
+<h2 id="sec-26"><span class="section-number-2">26</span> Doing automated testing of literate <code>python</code> programs</h2>
+<div class="outline-text-2" id="text-26">
+</div><div id="outline-container-sec-26-1" class="outline-3">
+<h3 id="sec-26-1"><span class="section-number-3">26.1</span> Making <code>test_HelloWorld.txt</code></h3>
+<div class="outline-text-3" id="text-26-1">
+<p>
+Create interactive tests. It's a good idea to use the restructured
+text mode in emacs, so that the result can be a ReStructuredText test
+document, traditional to <code>python</code>.
+</p>
+
+<p>
+Here is one, for example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: doctest-foo</span>
+<span style="color: #b22222;">#+BEGIN_SRC rst</span>
+  example foo::
+    &gt;&gt;&gt; from HelloWorld import *
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; foo = HelloWorld('foo')
+    &gt;&gt;&gt; foo.say_hello()
+    Hello foo
+
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+and another:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: doctest-bar</span>
+<span style="color: #b22222;">#+BEGIN_SRC rst</span>
+  example bar::
+    &gt;&gt;&gt; from HelloWorld import *
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; bar = HelloWorld('bar')
+    &gt;&gt;&gt; bar.say_hello()
+    Hello bar
+
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+Create a document to "tangle" them into
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC text :noweb yes :tangle test_HelloWorld.txt :exports none</span>
+<span style="text-decoration: underline;">&lt;&lt;doctest-foo&gt;&gt;</span>
+<span style="text-decoration: underline;">&lt;&lt;doctest-bar&gt;&gt;</span>
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-26-2" class="outline-3">
+<h3 id="sec-26-2"><span class="section-number-3">26.2</span> Running just the doctests</h3>
+<div class="outline-text-3" id="text-26-2">
+<p>
+You can run the doctests from with <code>org-mode</code> with this bash code snippet:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: bashrun-helloworld-doctest</span>
+<span style="color: #b22222;">#+BEGIN_SRC sh :results output :exports both</span>
+python -m doctest test_HelloWorld.txt 2&gt;&amp;1
+true
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+If the test succeeds, it will produce no output
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-26-3" class="outline-3">
+<h3 id="sec-26-3"><span class="section-number-3">26.3</span> Defining <code>unittest</code> tests</h3>
+<div class="outline-text-3" id="text-26-3">
+<p>
+Define the unit test like any other piece of <code>python</code> code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: unittest-foo</span>
+<span style="color: #b22222;">#+BEGIN_SRC python</span>
+  class TestFoo(unittest.TestCase):
+      def test_foo(self):
+          greeter = HelloWorld('foo')
+          self.assertEqual(greeter.who, 'foo')
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-26-4" class="outline-3">
+<h3 id="sec-26-4"><span class="section-number-3">26.4</span> Making <code>TestHelloWorld.py</code></h3>
+<div class="outline-text-3" id="text-26-4">
+<p>
+Define the main testing module like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC python :noweb yes :tangle TestHelloWorld.py :exports none</span>
+  import sys
+  import unittest
+  from doctest import DocFileSuite
+  from HelloWorld import *
+  
+  <span style="text-decoration: underline;">&lt;&lt;unittest-foo&gt;&gt;</span>
+  
+  def main():
+      suite = unittest.TestSuite()
+      suite.addTests( DocFileSuite('test_HelloWorld.txt') )
+      suite.addTests( 
+          unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__]))
+      unittest.TextTestRunner(verbosity=2).run(suite)
+      return 0
+  
+  if __name__ == '__main__':
+      status = main()
+      sys.exit(status)
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-26-5" class="outline-3">
+<h3 id="sec-26-5"><span class="section-number-3">26.5</span> Running all tests</h3>
+<div class="outline-text-3" id="text-26-5">
+<p>
+Use this <code>bash</code> source block to run all tests:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+NAME: bashrun-helloworld-alltest</span>
+<span style="color: #b22222;">#+BEGIN_SRC sh :results output :exports both</span>
+python -m doctest test_HelloWorld.py 2&gt;&amp;1
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+The output looks like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh" id="bashrun-helloworld-alltest">python TestHelloWorld.py 2&gt;&amp;1
+</pre>
+</div>
+
+<pre class="example">
+test_HelloWorld.txt
+Doctest: test_HelloWorld.txt ... ok
+test_foo (__main__.TestFoo) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.004s
+
+OK
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-27" class="outline-2">
+<h2 id="sec-27"><span class="section-number-2">27</span> Generating an <code>org-mode</code> source block within an <code>org-mode</code> document</h2>
+<div class="outline-text-2" id="text-27">
+<p>
+This document often needs to quote org-mode code within org-mode,
+which is slightly tricky, because you need to escape the <code>#+END_SRC</code>
+block. Do this using a comma in the first line. So to get this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC python</span>
+print "foo"
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+Do this:
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #b22222;">#+BEGIN_SRC org</span>
+#+BEGIN_SRC python
+print "foo"
+,#+END_SRC
+<span style="color: #b22222;">#+END_SRC</span>
+</pre>
+</div>
+
+<p>
+Sometimes additional elements (particularly lines with special meaning
+in org-mode, like those starting with <code>#</code> or <code>*</code>) need escaping with a
+comma as well, but not always.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-28" class="outline-2">
+<h2 id="sec-28"><span class="section-number-2">28</span> LaTeX presentations with beamer</h2>
+<div class="outline-text-2" id="text-28">
+<p>
+To generate a presentation PDF file using the beamer mode in LaTeX, do
+something like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org"><span style="color: #7f7f7f;">#+TITLE:</span>
+<span style="color: #7f7f7f;">#+AUTHOR:</span>
+<span style="color: #b22222;">#+OPTIONS: H:1 toc:nil \n:nil @:t ::t |:t ^:t *:t TeX:t LaTeX:t</span>
+<span style="color: #b22222;">#+LATEX_CLASS: beamer</span>
+<span style="color: #b22222;">#+LATEX_CLASS_OPTIONS: [presentation]</span>
+<span style="color: #b22222;">#+BEAMER_THEME: default</span>
+<span style="color: #b22222;">#+BEAMER_FONT_THEME: default</span>
+<span style="color: #b22222;">#+BEAMER_COLOR_THEME: dove</span>
+<span style="color: #b22222;">#+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col) %8BEAMER_OPT(Opt)</span>
+<span style="color: #b22222;">#+STARTUP: beamer</span>
+
+<span style="color: #0000ff;">* Slide one</span>
+
+ - Foo
+   + baz
+   + qux
+ - Bar
+
+
+<span style="color: #0000ff;">* Next slide foo</span>
+
+ - Foo
+   + baz
+   + qux
+ - Bar
+</pre>
+</div>
+
+<p>
+The present <code>#+TITLE:</code> and <code>#+AUTHOR:</code> lines without values prevent
+the generation of a title page. If these have values, a title pages is
+generated.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Eric H. Neilsen, Jr.</p>
+<p class="date">Created: 2015-07-20 Mon 09:44</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.7)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

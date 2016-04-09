@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>d3 draggable object example #4 &#x2013; parametric + improved selection identification</title>
+<!-- 2016-04-02 Sat 00:38 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Roland Conybeare" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript" src="/ext/d3/d3.js"></script>
+<script type="text/javascript" src="point.js"></script>
+<script type="text/javascript" src="fx.js"></script>
+<script type="text/javascript" src="fx_view.js"></script>
+<script type="text/javascript" src="parametric-drag-example.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/notebook.css" />
+
+<script type="text/javascript" src="/ext/org/org-info.js">
+/**
+ *
+ * @source: /ext/org/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in /ext/org/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in /ext/org/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "../../index.html");
+org_html_manager.set("LINK_UP", "../../index.html");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffc0c0");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">d3 draggable object example #4 &#x2013; parametric + improved selection identification</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Introduction</a></li>
+<li><a href="#sec-2">Prerequisites</a></li>
+<li><a href="#sec-3">Procedure</a>
+<ul>
+<li><a href="#sec-3-1">Add function <code>pt.find_perpendicular</code></a></li>
+<li><a href="#sec-3-2">Upgrade <code>fx_view.update_select</code> to use a smoothly-varying function of mouse coordinates</a></li>
+<li><a href="#sec-3-3">Reuse <code>parametric-drag-example.js</code> from example <i>#3</i></a></li>
+<li><a href="#sec-3-4">Load ~.js_ files in html header</a></li>
+<li><a href="#sec-3-5">Insert html fragment to invoke our interactive javascript code</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This page extends example <i>#3</i> (<a href="../drag3/index.html">../drag3/index.html</a>),
+modifying the algorithm for associating mouse coordinates with a point on the function
+so that we get smooth dragging behavior
+</p>
+
+<dl class="org-dl">
+<dt> source </dt><dd>org-mode source for this page is here: <a href="index-src.html">index-src.html</a>
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Prerequisites</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+As for examples <i>#1</i>, <i>#2</i>, <i>#3</i> (<a href="../drag1/index.html">../drag1/index.html</a>)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Procedure</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Start with example <i>#3</i>: we will reuse the files <code>point.js</code>, <code>fx.js</code>, <code>fx_view.js</code>.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Add function <code>pt.find_perpendicular</code></h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Write a function to:
+given a line <i>L</i> and a reference point <i>p<sub>ref</sub></i>,
+find the target point <i>p<sub>tgt</sub></i> in <i>L</i>,
+such that the line through <i>p<sub>ref</sub></i> and <i>p<sub>tgt</sub></i> is perpendicular to L.
+<i>p<sub>tgt</sub></i> is the point in <i>L</i> that's closest to <i>p<sub>ref</sub></i>
+</p>
+
+<pre class="example">
+/* given a line L through points pt1,pt2,
+ * find the point p on the line such that the line through p,target_pt
+ * is perpendicular to L
+ * 
+ * point = {x,y}
+ * target_pt, pt1, pt2 :: point
+ * return :: point
+ */
+ex.find_perpendicular = function(target_pt, pt1, pt2, clip_flag)
+{
+    /*
+     *                               * (x2,y2) = pt2
+     *                             /
+     *                           /
+     *                         /  L
+     *                   p   /
+     *                     *
+     *                   /   \  M
+     *                 /       \
+     * pt1 = (x1,y1) *           \
+     *                            * (x0,y0) pt0
+     *
+     * parameterise the line L through pt1,pt2:
+     *    L comprises the points L(t) = pt1 + t*(pt2-pt1)
+     * given a particular point p = L(t0),  consider the line M
+     * through L(t0) and (x0,y0)
+     *    M comprises the points M(s) = pt0 + s*(L(t0)-pt0)
+     *  
+     * we seek t such that the line M(s) through L(t) and (x0,y0)
+     * is perpendicular to L.
+     *
+     * A vector lv parallel to L is (pt2-pt1).
+     *   lv = (x2-x1,y2-y1)
+     * A vector mv parallel to the line thru L(t) 
+     *   L(t) = pt1 + t*(pt2-pt1) = (1-t)*pt1 + t*pt2
+     * and pt0 is:
+     *   mv = L(t)-pt0
+     *      = ((1-t)*x1 + t*x2) - x0,
+     *         (1-t)*y1 + t*y2) - y0)
+     * 
+     *  lv . mvT
+     *      = (x2-x1)*[(1-t)*x1 + t*x2 - x0]
+     *         + (y2-y1)*[(1-t)*y1 + t*y2 - y0]
+     * 
+     * lv. mvT is 0 when lv and mv are _|_:
+     *   (x2-x1)*[(1-t)*x1 + t*x2 - x0] = -(y2-y1)*[(1-t)*y1 + t*y2 - y0]
+     *   (x2-x1)*[-t*x1 + t*x2 + x1-x0] = -(y2-y1)*[-t*y1 + t*y2 + y1-y0]
+     *   t*(x2-x1)*[-x1 + x2] + (x2-x1)*(x1-x0) = t*[-(y2-y1)]*[-y1 + y2] + -(y2-y1)*(y1-y0)
+     *   t*(x2-x1)^2 + t*(y2-y1)^2 = -(x2-x1)*(x1-x0) - (y2-y1)*(y1-y0)
+     *   
+     *            (x2-x1)*(x1-x0) + (y2-y1)*(y1-y0)
+     *   t = -1 * ---------------------------------
+     *                 (x2-x1)^2 + (y2-y1)^2
+     *
+     *   L(t) = pt1 + t*(pt2 - pt1)
+     */
+    var pt0 = target_pt;
+
+    var dx2 = pt2.x - pt1.x;
+    var dy2 = pt2.y - pt1.y;
+
+    var dx1 = pt1.x - pt0.x;
+    var dy1 = pt1.y - pt0.y;
+
+    var t = -((dx2*dx1) + (dy2*dy1)) / (dx2*dx2 + dy2*dy2);
+
+    /* if clip_flag is true:
+     * constrain t to [0,1]
+     */
+    if(clip_flag) {
+	if(t &lt; 0.0)
+	    t = 0.0;
+	if(t &gt; 1.0)
+	    t = 1.0;
+    }
+
+    var xt = pt1.x + t * dx2;
+    var yt = pt1.y + t * dy2;
+
+    return {x: xt, y: yt};
+} /*find_perpendicular*/
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">Upgrade <code>fx_view.update_select</code> to use a smoothly-varying function of mouse coordinates</h3>
+<div class="outline-text-3" id="text-3-2">
+<pre class="example">
+/* update selection circle
+ * for an event at Point pt
+ */
+fx_view.fx_update_select
+    = function(p, target_pt_v)
+{
+    /* find point on {x,f(x)} that's closest to 
+     * mouse location (i.e. to d3.event)
+     */
+    var mid_pt_ix
+	= pt.find_closest_ix(p, target_pt_v);
+
+    /* establish three neighboring points;
+     * ideally around best_px_ix,  but stay within target_pt_v
+     */
+    if(mid_pt_ix - 1 &lt; 0)
+	++mid_pt_ix;
+    if(mid_pt_ix + 1 &gt;= target_pt_v.length)
+	--mid_pt_ix;
+
+    var pt0 = target_pt_v[mid_pt_ix - 1];
+    var pt1 = target_pt_v[mid_pt_ix];
+    var pt2 = target_pt_v[mid_pt_ix + 1];
+
+    /* find best points on line segments [pt0,pt1] and [pt1,pt2] respectively */
+    var perp_lo_pt = pt.find_perpendicular(d3.event, pt0, pt1, true /*clip_flag*/);
+    var perp_hi_pt = pt.find_perpendicular(d3.event, pt1, pt2, true /*clip_flag*/);
+
+    /* choose nearest of perp_lo_pt and perp_hi_pt */
+    var perp_pt = pt.find_closest(d3.event, [perp_lo_pt, perp_hi_pt]);
+
+    fx_view.fx_select_circle
+	.attr("cx", perp_pt.x)
+	.attr("cy", perp_pt.y);
+} /*fx_update_select*/
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3">Reuse <code>parametric-drag-example.js</code> from example <i>#3</i></h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+
+<pre class="src src-js"><span class="linenr"> 1: </span>!function() {
+<span class="linenr"> 2: </span>    var ex = {};
+<span class="linenr"> 3: </span>
+<span class="linenr"> 4: </span>    /* Requires: 
+<span class="linenr"> 5: </span>     * - point.js
+<span class="linenr"> 6: </span>     * - fx.js
+<span class="linenr"> 7: </span>     * - fx_view.js
+<span class="linenr"> 8: </span>     */
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span>    ex.box_pt = {x: 600, y: 400};
+<span class="linenr">11: </span>
+<span class="linenr">12: </span>    /* w :: Window */
+<span class="linenr">13: </span>    ex.start = function(w)
+<span class="linenr">14: </span>    {
+<span class="linenr">15: </span>	ex.pt2screen = fx.linear_fn(pt.sub_pt(pt.scale_pt(0.5, ex.box_pt),
+<span class="linenr">16: </span>					      fx.eval_fn(0.0) /*ctr_fx*/),
+<span class="linenr">17: </span>				    200.0 /*scale_factor*/);
+<span class="linenr">18: </span>	ex.target_pt_v = fx.make_target_pt_v(fx.eval_fn,
+<span class="linenr">19: </span>					     -1.66, +5.0, 200.0 /*n_pt*/,
+<span class="linenr">20: </span>					     ex.pt2screen, ex.box_pt);
+<span class="linenr">21: </span>	fx_view.init_drag_function(ex.target_pt_v);
+<span class="linenr">22: </span>	fx_view.draw("#frame", ex.box_pt, ex.target_pt_v);
+<span class="linenr">23: </span>    }
+<span class="linenr">24: </span>
+<span class="linenr">25: </span>    this.ex = ex;
+<span class="linenr">26: </span>}();
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4">Load ~.js_ files in html header</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+This step is identical to the similar step in example <i>#3</i>
+At the top of the <code>.org</code> file:
+</p>
+<pre class="example">
+#+html_head: &lt;script type="text/javascript" src="/ext/d3/d3.js"&gt;&lt;/script&gt;
+#+html_head: &lt;script type="text/javascript" src="point.js"&gt;&lt;/script&gt;
+#+html_head: &lt;script type="text/javascript" src="fx.js"&gt;&lt;/script&gt;
+#+html_head: &lt;script type="text/javascript" src="fx_view.js"&gt;&lt;/script&gt;
+#+html_head: &lt;script type="text/javascript" src="parametric-drag-example.js"&gt;&lt;/script&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5">Insert html fragment to invoke our interactive javascript code</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+This also follows the same model we used in example <i>#3</i>.
+</p>
+<pre class="example">
+#+begin_html
+&lt;div id="frame"&gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+  window.onload = function() { ex.start(this); }
+&lt;/script&gt;
+#+end_html
+</pre>
+<p>
+The div element <code>#frame</code> will appear below this line:
+</p>
+<div id="frame"></div>
+<script type="text/javascript">
+  window.onload = function() { ex.start(this); }
+</script>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Roland Conybeare</p>
+<p class="date">Created: 2016-04-02 Sat 00:38</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

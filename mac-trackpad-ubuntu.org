@@ -1,0 +1,45 @@
+* introduction
+  I installed ubuntu 15.10 (wily werewolf) on my late 2014 macbook pro.
+  The trackpad behavior was immediately highly annoying. 
+  The main problem was lots of false positives -- the driver deciding I
+  wanted to use the trackpad while typing,  when my palm gently brushed it.
+
+  I managed to solve the problem by using the 'mtrack' driver.
+  I think this is replacing the default synaptics driver for trackpad input.
+
+** sources
+   - [[www.chris-reilly.org/blog/technotes/macbook-trackpad-in-ubuntu]]
+   - http://yarenty.blogspot.com/2014/08/how-to-fix-macbook-pro-touchpad-on.html
+   - [[github.com/BlueDragonX/xf86-input-mtrack/blob/master/README.md]]
+
+* instructions
+** install the xorg mtrack ubuntu package:
+   #+begin_example
+   sudo apt-get install xserver-xorg-input-mtrack
+   #+end_example
+   This installs the following files:
+   #+begin_src sh :exports both
+   dpkg-query -L xserver-xorg-input-mtrack
+   #+end_src
+
+   #+RESULTS:
+   | /.                                                           |
+   | /usr                                                         |
+   | /usr/lib                                                     |
+   | /usr/lib/xorg                                                |
+   | /usr/lib/xorg/modules                                        |
+   | /usr/lib/xorg/modules/input                                  |
+   | /usr/lib/xorg/modules/input/mtrack_drv.so                    |
+   | /usr/share                                                   |
+   | /usr/share/bug                                               |
+   | /usr/share/bug/xserver-xorg-input-mtrack                     |
+   | /usr/share/X11                                               |
+   | /usr/share/X11/xorg.conf.d                                   |
+   | /usr/share/X11/xorg.conf.d/50-mtrack.conf                    |
+   | /usr/share/doc                                               |
+   | /usr/share/doc/xserver-xorg-input-mtrack                     |
+   | /usr/share/doc/xserver-xorg-input-mtrack/copyright           |
+   | /usr/share/doc/xserver-xorg-input-mtrack/README.md.gz        |
+   | /usr/share/doc/xserver-xorg-input-mtrack/changelog.Debian.gz |
+   | /usr/share/bug/xserver-xorg-input-mtrack/script              |
+
